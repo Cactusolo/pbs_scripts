@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+#PBS -N mrbayes
+#PBS -M YOU@ufl.edu
+#PBS -m abe
+#PBS -o mb.$PBS_JOBID.out
+#PBS -e mb.$PBS_JOBID.err
+#PBS -l nodes=1:ppn=1
+#PBS -l pmem=1gb
+#PBS -l walltime=00:05:00
+
+#Change to the directory where the job was launched from
+cd $PBS_O_WORKDIR
+
+module load mrbayes
+
+#Run MrBayes using the beast command line from documentation.
+mb primates.nex 

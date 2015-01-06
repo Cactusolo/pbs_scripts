@@ -1,0 +1,17 @@
+#!/bin/sh
+#PBS -N RAxML
+#PBS -m bea
+#PBS -M YOU@ufl.edu	
+#PBS -o raxml.$PBS_JOBID.log
+#PBS -e raxml.$PBS_JOBID.err
+#PBS -l nodes=1:ppn=8
+#PBS -l pmem=500mb
+#PBS -l walltime=00:05:00
+#
+# This job's working directory
+cd $PBS_O_WORKDIR
+
+
+module load raxml
+raxmlHPC-PTHREADS-SSE3 -f a -m GTRGAMMA -s dna.phy -p $RANDOM -x $RANDOM -N 100 -n dna -T $PBS_NUM_PPN
+

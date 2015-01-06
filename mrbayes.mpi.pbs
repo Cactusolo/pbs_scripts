@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+#PBS -N mrbayes
+#PBS -M YOU@ufl.edu
+#PBS -m abe
+#PBS -o mb.$PBS_JOBID.out
+#PBS -e mb.$PBS_JOBID.err
+#PBS -l nodes=1:ppn=4
+#PBS -l pmem=500mb
+#PBS -l walltime=00:05:00
+
+#Change to the directory where the job was launched from
+cd $PBS_O_WORKDIR
+
+#Use modules to load the environment for MrBayes--also needs intel compiler and (optionally) MPI
+module load intel/2012
+module load openmpi/1.6
+module load mrbayes
+
+#Run MrBayes using the mrbayes command line from documentation.
+mpiexec mb primates.nex 

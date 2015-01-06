@@ -1,0 +1,19 @@
+#!/bin/sh
+#PBS -N RAxML
+#PBS -m bea
+#PBS -M YOU@ufl.edu	
+#PBS -o raxml.$PBS_JOBID.log
+#PBS -e raxml.$PBS_JOBID.err
+#PBS -l nodes=1:ppn=20
+#PBS -l pmem=500mb
+#PBS -l walltime=00:10:00
+#
+# This job's working directory
+cd $PBS_O_WORKDIR
+
+# Load the raxml environment
+module load gcc/4.7.2 openmpi/1.6.5 raxml/8.1.12
+ 
+# The raxml command, modify as needed. Read the manual or use raxmlHPC-MPI-SSE3 -help to see options
+# Note the use of the variable $PBS_NUM_PPN defined by the scheduler based on your resource request
+mpiexec -bynode -np 5 raxmlHPC-HYBRID-SSE3 -f d -m GTRCAT -s your_data.phy -n output_name -p $RANDOM -b $RANDOM -N 500 -T 4
